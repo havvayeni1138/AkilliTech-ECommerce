@@ -1,0 +1,60 @@
+@model EticaretUygulamasi.Models.Kullanici
+
+@{
+    ViewData["Title"] = "Profilim";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Profilim</h2>
+                    <form asp-action="Profile" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="KullaniciId" />
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="Ad" class="control-label"></label>
+                            <input asp-for="Ad" class="form-control" />
+                            <span asp-validation-for="Ad" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="Soyad" class="control-label"></label>
+                            <input asp-for="Soyad" class="form-control" />
+                            <span asp-validation-for="Soyad" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" readonly />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="Telefon" class="control-label"></label>
+                            <input asp-for="Telefon" class="form-control" />
+                            <span asp-validation-for="Telefon" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="Adres" class="control-label"></label>
+                            <textarea asp-for="Adres" class="form-control"></textarea>
+                            <span asp-validation-for="Adres" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">İptal</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

@@ -1,0 +1,81 @@
+﻿@model IEnumerable<EticaretUygulamasi.Models.Urun>
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Anasayfa";
+}
+
+<div class="container home-container">
+    <div class="text-center mb-5">
+        <h1 class="home-title">Tekno Market</h1>
+        <p class="home-subtitle">En yeni teknoloji ürünleri burada!</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        @foreach (var urun in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <div class="position-relative">
+                        @if (!string.IsNullOrEmpty(urun.ResimUrl))
+                        {
+                            <img src="@urun.ResimUrl" class="card-img-top" alt="@urun.UrunAdi" 
+                                 style="width: 100%; height: 100%; object-fit: cover;">
+                        }
+                        else
+                        {
+                            <div class="bg-light d-flex align-items-center justify-content-center" 
+                                 style="width: 100%; height: 100%;">
+                                <i class="fas fa-image fa-3x text-muted"></i>
+                            </div>
+                        }
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-truncate">@urun.UrunAdi</h5>
+                        <p class="category-text">@urun.Kategori?.KategoriAdi</p>
+                        <p class="card-text flex-grow-1">@(urun.Aciklama?.Length > 100 ? urun.Aciklama.Substring(0, 100) + "..." : urun.Aciklama)</p>
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            <span class="h5 mb-0">@string.Format("{0:N2} ₺", urun.Fiyat)</span>
+                            <form asp-action="AddToCart" asp-controller="Sepet" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="urunId" value="@urun.UrunId" />
+                                <input type="hidden" name="miktar" value="1" />
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-cart-plus"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-top-0">
+                        <a asp-controller="Urun" asp-action="Details" asp-route-id="@urun.UrunId" class="btn btn-outline-secondary w-100">
+                            <i class="fas fa-info-circle me-2"></i>Detaylar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Kartların yüksekliğini eşitle
+        function equalizeCardHeights() {
+            var cards = document.querySelectorAll('.card');
+            var maxHeight = 0;
+
+            cards.forEach(function(card) {
+                var height = card.offsetHeight;
+                maxHeight = Math.max(maxHeight, height);
+            });
+
+            cards.forEach(function(card) {
+                card.style.height = maxHeight + 'px';
+            });
+        }
+
+        // Sayfa yüklendiğinde ve pencere boyutu değiştiğinde kartları eşitle
+        window.addEventListener('load', equalizeCardHeights);
+        window.addEventListener('resize', equalizeCardHeights);
+    </script>
+}

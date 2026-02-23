@@ -1,0 +1,310 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+  background-color: #f8f9fa;
+}
+
+/* Navbar Styles */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #0d6efd !important;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+/* Button Styles */
+.btn {
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+/* Form Styles */
+.form-control {
+    border-radius: 0.375rem;
+    border: 1px solid #ced4da;
+    padding: 0.5rem 0.75rem;
+}
+
+.form-control:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+}
+
+/* Table Styles */
+.table {
+    background-color: white;
+    border-radius: 0.375rem;
+    overflow: hidden;
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+}
+
+/* Footer Styles */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+    background-color: white;
+    box-shadow: 0 -2px 4px rgba(0,0,0,.1);
+}
+
+/* Product Card Styles */
+.product-card {
+    /* height: 100%; */ /* Sabit yüksekliği kaldır */
+}
+
+.product-card .card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.product-card .price {
+    font-size: 1.25rem;
+    color: #0d6efd;
+    font-weight: bold;
+}
+
+/* Cart Styles */
+.cart-item {
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-total {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #0d6efd;
+}
+
+/* Alert Styles */
+.alert {
+    border: none;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.alert-success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+.alert-info {
+    background-color: #cff4fc;
+    color: #055160;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+/* Kategori Yazıları Stili */
+.category-text {
+    font-size: 0.9rem; /* Yazı boyutunu ayarla */
+    font-weight: bold; /* Kalın yap */
+    color: var(--mor-orta); /* Tema rengini kullan */
+    margin-bottom: 0.5rem; /* Alt boşluk */
+    text-transform: uppercase; /* Büyük harf yap */
+}
+
+/* Ürün Açıklaması Stili */
+.product-description {
+    /* height: 60px; */ /* Sabit yüksekliği kaldır */
+    /* overflow: hidden; */ /* Taşan yazıyı gizle */
+    /* text-overflow: ellipsis; */ /* Taşan yazı yerine üç nokta koy */
+    /* display: -webkit-box; */ /* Çok satırlı taşma için */
+    /* -webkit-line-clamp: 3; */ /* Maksimum satır sayısı */
+    /* -webkit-box-orient: vertical; */
+    flex-grow: 1; /* Kalan alanı kapla */
+    margin-bottom: 1rem; /* Alt boşluğu koru */
+}
+
+/* Anasayfa Başlık ve Container Stilleri */
+.home-container {
+    background: linear-gradient(to bottom, var(--mor-acik), var(--beyaz)); /* Gradyan arka plan */
+    padding: 3rem; /* İç boşluk */
+    border-radius: 15px; /* Daha yuvarlak köşeler */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Belirgin gölge */
+    margin-top: 3rem; /* Üst boşluk */
+}
+
+.home-title {
+    color: var(--mor-koyu); /* Koyu mor başlık rengi */
+    font-size: 3.5rem; /* Daha büyük başlık */
+    font-weight: 700; /* Daha kalın font */
+    margin-bottom: 1rem; /* Alt boşluk */
+}
+
+.home-subtitle {
+    color: var(--mor-orta); /* Orta mor alt başlık rengi */
+    font-size: 1.5rem; /* Alt başlık boyutu */
+    margin-bottom: 2.5rem; /* Alt boşluk */
+}
+
+/* Navbar Link Stilleri */
+.navbar-nav .nav-link {
+    font-size: 1.1rem; /* Daha büyük font boyutu */
+    font-weight: bold; /* Kalın font */
+    color: var(--mor-koyu) !important; /* Mor renkte ve önemli */
+    transition: color 0.3s ease; /* Renk değişimine yumuşak geçiş */
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--mor-orta) !important; /* Hover rengi */
+}
+
+/* Mor Tema Stilleri */
+
+:root {
+    --mor-koyu: #4A148C; /* Koyu Mor */
+    --mor-orta: #673AB7; /* Orta Ton Mor */
+    --mor-acik: #E1BEE7; /* Açık Mor */
+    --beyaz: #FFFFFF;
+    --gri-acik: #F5F5F5;
+    --gri-orta: #CCCCCC;
+}
+
+a {
+    color: var(--mor-orta);
+    text-decoration: none;
+    transition: color 0.3s ease; /* Renk değişimine yumuşak geçiş */
+}
+
+a:hover {
+    color: var(--mor-koyu);
+    text-decoration: underline;
+}
+
+.btn-primary {
+    background-color: var(--mor-orta);
+    border-color: var(--mor-orta);
+    color: var(--beyaz);
+    border-radius: 8px; /* Yuvarlak köşeler */
+    padding: 10px 20px; /* Buton iç boşluğu */
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2); /* Hafif gölge */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Yumuşak geçiş efektleri */
+}
+
+.btn-primary:hover {
+    background-color: var(--mor-koyu);
+    border-color: var(--mor-koyu);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3); /* Hover'da daha belirgin gölge */
+}
+
+/* Kayıt ve Giriş Formları İçin Ek Stiller */
+/* Bu kısımlar form yapınıza göre ayarlanabilir */
+
+.form-control {
+    border-color: var(--mor-orta);
+    border-radius: 5px; /* Yuvarlak köşeler */
+    padding: 10px;
+}
+
+.form-control:focus {
+    border-color: var(--mor-koyu);
+    box-shadow: 0 0 0 0.25rem rgba(103, 58, 183, 0.4); /* Orta mor tonunda daha belirgin gölge */
+}
+
+/* Diğer sayfa elemanları için stil ayarlamaları gerekebilir */
+/* Örneğin başlıklar, kartlar vb. */
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--mor-koyu);
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+/* Örnek: Eğer ürün kartlarınız varsa */
+.card {
+    border-color: var(--mor-orta);
+    border-radius: 10px; /* Daha yuvarlak köşeler */
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.2); /* Daha belirgin gölge */
+    margin-bottom: 20px; /* Kartlar arasına boşluk */
+}
+
+.card-title {
+    color: var(--mor-koyu);
+}
+
+.card-body {
+    padding: 15px;
+    padding-top: 20px; /* Üstten boşluğu artır */
+}
+
+/* Görsel (Resim) Stilleri */
+/* Ürün görselleri için yuvarlak köşeler veya hafif gölge ekleyebiliriz */
+.card-img-top {
+    border-top-left-radius: 9px; /* Kartın üst köşeleri ile uyumlu */
+    border-top-right-radius: 9px;
+    /* max-height: 180px; */ /* Maksimum yüksekliği kaldır */
+    height: auto; /* Yüksekliği otomatik yap */
+    max-width: 100%; /* Genişliği kutucuğa sığdır */
+    object-fit: contain; /* Görselin tamamını göster */
+    padding: 1rem;
+}

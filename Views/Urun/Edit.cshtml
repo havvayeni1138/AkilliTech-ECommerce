@@ -1,0 +1,77 @@
+@model EticaretUygulamasi.Models.Urun
+
+@{
+    ViewData["Title"] = "Ürün Düzenle";
+}
+
+<h1>Ürün Düzenle</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UrunId" />
+
+            <div class="form-group mb-3">
+                <label asp-for="UrunAdi" class="control-label">Ürün Adı</label>
+                <input asp-for="UrunAdi" class="form-control" />
+                <span asp-validation-for="UrunAdi" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Fiyat" class="control-label">Fiyat</label>
+                <input asp-for="Fiyat" class="form-control" step="0.01" />
+                <span asp-validation-for="Fiyat" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Aciklama" class="control-label">Açıklama</label>
+                <textarea asp-for="Aciklama" class="form-control"></textarea>
+                <span asp-validation-for="Aciklama" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="StokMiktari" class="control-label">Stok Miktarı</label>
+                <input asp-for="StokMiktari" class="form-control" />
+                <span asp-validation-for="StokMiktari" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="KategoriId" class="control-label">Kategori</label>
+                <select asp-for="KategoriId" class="form-control" asp-items="@(new SelectList(ViewBag.Kategoriler, "KategoriId", "KategoriAdi"))">
+                    <option value="">Kategori Seçiniz</option>
+                </select>
+                <span asp-validation-for="KategoriId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="AktifMi" class="control-label">Aktif Mi?</label>
+                <input asp-for="AktifMi" class="form-check-input" />
+                <span asp-validation-for="AktifMi" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="control-label">Mevcut Görsel</label>
+                @if (!string.IsNullOrEmpty(Model.ResimUrl))
+                {
+                    <div class="mb-2">
+                        <img src="@Model.ResimUrl" alt="@Model.UrunAdi" class="img-thumbnail" style="max-width: 200px;" />
+                    </div>
+                }
+                <label class="control-label">Yeni Görsel (Değiştirmek için seçin)</label>
+                <input type="file" name="resim" class="form-control" accept="image/*" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

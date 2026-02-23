@@ -1,0 +1,31 @@
+﻿@model EticaretUygulamasi.Models.Siparis
+
+@{
+    ViewData["Title"] = "Ödeme";
+}
+
+<h2>Ödeme</h2>
+
+<div>
+    <h4>Sipariş Özeti</h4>
+    <p><strong>Sipariş No:</strong> @Model.SiparisId</p>
+    <p><strong>Toplam Tutar:</strong> @Model.ToplamTutar ₺</p>
+    <p><strong>Adres:</strong> @Model.Adres</p>
+</div>
+
+<form asp-action="Odeme" method="post">
+    <input type="hidden" name="siparisId" value="@Model.SiparisId" />
+    <div class="form-group">
+        <label>Kart Numarası</label>
+        <input type="text" name="kartNo" class="form-control" required maxlength="19" placeholder="XXXX XXXX XXXX XXXX" />
+    </div>
+    <div class="form-group">
+        <label>Son Kullanma Tarihi</label>
+        <input type="text" name="sonKullanmaTarihi" class="form-control" required placeholder="AA/YY" maxlength="5" />
+    </div>
+    <div class="form-group">
+        <label>CVV</label>
+        <input type="text" name="cvv" class="form-control" required maxlength="4" />
+    </div>
+    <button type="submit" class="btn btn-success">Ödemeyi Tamamla</button>
+</form>

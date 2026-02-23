@@ -1,0 +1,41 @@
+﻿@model EticaretUygulamasi.Models.Siparis
+
+@{
+    ViewData["Title"] = "Sipariş Detayı";
+}
+
+@if (TempData["SiparisBasarili"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SiparisBasarili"]
+    </div>
+}
+
+<h2>Sipariş Detayı</h2>
+<p><strong>Sipariş No:</strong> @Model.SiparisId</p>
+<p><strong>Sipariş Tarihi:</strong> @Model.SiparisTarihi.ToString("dd.MM.yyyy HH:mm")</p>
+<p><strong>Toplam Tutar:</strong> @Model.ToplamTutar ₺</p>
+<p><strong>Sipariş Durumu:</strong> @Model.SiparisDurumu</p>
+
+<h4>Ürünler</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ürün</th>
+            <th>Adet</th>
+            <th>Birim Fiyat</th>
+            <th>Toplam</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var detay in Model.SiparisDetaylar)
+        {
+            <tr>
+                <td>@detay.Urun.UrunAdi</td>
+                <td>@detay.Miktar</td>
+                <td>@detay.BirimFiyat ₺</td>
+                <td>@detay.ToplamFiyat ₺</td>
+            </tr>
+        }
+    </tbody>
+</table>

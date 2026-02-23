@@ -1,0 +1,29 @@
+﻿@model EticaretUygulamasi.Models.Siparis
+
+@{
+    ViewData["Title"] = "Siparişi Tamamla";
+}
+
+<h2>Siparişi Tamamla</h2>
+
+<form asp-action="Tamamla" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label asp-for="Adres"></label>
+        <input asp-for="Adres" class="form-control" />
+        <span asp-validation-for="Adres" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Telefon"></label>
+        <input asp-for="Telefon" class="form-control" />
+        <span asp-validation-for="Telefon" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Ödemeye Geç</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

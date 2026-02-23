@@ -1,0 +1,66 @@
+@model EticaretUygulamasi.Models.Kullanici
+
+@{
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Kayıt Ol</h2>
+                <form asp-action="Register" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                    <div class="form-group mb-3">
+                        <label asp-for="Ad" class="control-label"></label>
+                        <input asp-for="Ad" class="form-control" />
+                        <span asp-validation-for="Ad" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group mb-3">
+                        <label asp-for="Soyad" class="control-label"></label>
+                        <input asp-for="Soyad" class="form-control" />
+                        <span asp-validation-for="Soyad" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group mb-3">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group mb-3">
+                        <label asp-for="Sifre" class="control-label"></label>
+                        <input asp-for="Sifre" type="password" class="form-control" />
+                        <span asp-validation-for="Sifre" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group mb-3">
+                        <label asp-for="Telefon" class="control-label"></label>
+                        <input asp-for="Telefon" class="form-control" />
+                        <span asp-validation-for="Telefon" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group mb-3">
+                        <label asp-for="Adres" class="control-label"></label>
+                        <textarea asp-for="Adres" class="form-control"></textarea>
+                        <span asp-validation-for="Adres" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+                    </div>
+                </form>
+                
+                <div class="text-center mt-3">
+                    <p>Zaten hesabınız var mı? <a asp-action="Login">Giriş Yap</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

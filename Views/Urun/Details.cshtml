@@ -1,0 +1,88 @@
+@model EticaretUygulamasi.Models.Urun
+@using System.Globalization
+
+@{
+    ViewData["Title"] = Model.UrunAdi;
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            @if (!string.IsNullOrEmpty(Model.ResimUrl))
+            {
+                <img src="@Model.ResimUrl" class="img-fluid rounded" alt="@Model.UrunAdi">
+            }
+            else
+            {
+                <img src="/images/no-image.png" class="img-fluid rounded" alt="Resim Yok">
+            }
+        </div>
+        <div class="col-md-6">
+            <h1 class="mb-3">@Model.UrunAdi</h1>
+            <p class="text-muted mb-2">@Model.Kategori?.KategoriAdi</p>
+            <h3 class="text-primary mb-4">@string.Format("{0:N2} ₺", Model.Fiyat)</h3>
+            <p class="mb-4">@Model.Aciklama</p>
+
+            @if (Model.StokMiktari > 0)
+            {
+                <p class="text-success mb-3">
+                    <i class="fas fa-check-circle"></i> Stokta @Model.StokMiktari adet var
+                </p>
+                <form asp-controller="Sepet" asp-action="AddToCart" method="post" class="d-flex align-items-center mb-4">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="urunId" value="@Model.UrunId" />
+                    <div class="input-group me-3" style="width: 150px;">
+                        <button type="button" class="btn btn-outline-secondary" onclick="decrementQuantity()">-</button>
+                        <input type="number" id="miktar" name="miktar" value="1" min="1" max="@Model.StokMiktari" class="form-control text-center" />
+                        <button type="button" class="btn btn-outline-secondary" onclick="incrementQuantity()">+</button>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-shopping-cart"></i> Sepete Ekle
+                    </button>
+                </form>
+            }
+            else
+            {
+                <p class="text-danger mb-3">
+                    <i class="fas fa-times-circle"></i> Stokta yok
+                </p>
+            }
+            
+            <div class="mt-4">
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left"></i> Ürünlere Dön
+                </a>
+                @if (Context.Session.GetString("AdminMi") == "True")
+                {
+                    <a asp-action="Edit" asp-route-id="@Model.UrunId" class="btn btn-warning">
+                        <i class="fas fa-edit"></i> Düzenle
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@Model.UrunId" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Sil
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function incrementQuantity() {
+            var input = document.getElementById('miktar');
+            var value = parseInt(input.value);
+            var max = parseInt(input.max);
+            if (value < max) {
+                input.value = value + 1;
+            }
+        }
+
+        function decrementQuantity() {
+            var input = document.getElementById('miktar');
+            var value = parseInt(input.value);
+            if (value > 1) {
+                input.value = value - 1;
+            }
+        }
+    </script>
+} 

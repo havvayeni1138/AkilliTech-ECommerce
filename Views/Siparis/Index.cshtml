@@ -1,0 +1,63 @@
+@model IEnumerable<EticaretUygulamasi.Models.Siparis>
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Siparişlerim";
+}
+
+<div class="container mt-4">
+    <h2>Siparişlerim</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>
+            Henüz herhangi bir siparişiniz bulunmamaktadır.
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Sipariş Tarihi</th>
+                    <th>Toplam Tutar</th>
+                    <th>Sipariş Durumu</th>
+                    <th>Takip Numarası</th>
+                    <th>Detaylar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var siparis in Model)
+                {
+                    <tr>
+                        <td>@siparis.SiparisTarihi.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>@string.Format("{0:N2} ₺", siparis.ToplamTutar)</td>
+                        <td>@siparis.SiparisDurumu</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(siparis.TakipNumarasi))
+                            {
+                                <span>@siparis.TakipNumarasi</span>
+                                <br />
+                                <a href="#" class="btn btn-sm btn-outline-primary mt-1">Kargo Takip</a>
+                            }
+                            else
+                            {
+                                <span>Takip Numarası Yok</span>
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@siparis.SiparisId" class="btn btn-sm btn-outline-secondary">Detayları Gör</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        // İleride kargo takip linkleri için JS eklenebilir
+    </script>
+} 

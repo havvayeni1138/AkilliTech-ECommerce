@@ -1,0 +1,138 @@
+@model IEnumerable<EticaretUygulamasi.Models.SepetUrunu>
+
+@{
+    ViewData["Title"] = "Sepetim";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Sepetim</h2>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            Sepetinizde ürün bulunmamaktadır. <a asp-controller="Urun" asp-action="Index" class="alert-link">Alışverişe başlamak için tıklayın</a>.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Ürün</th>
+                        <th>Fiyat</th>
+                        <th>Miktar</th>
+                        <th>Toplam</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    @if (!string.IsNullOrEmpty(item.Urun.ResimUrl))
+                                    {
+                                        <img src="@item.Urun.ResimUrl" alt="@item.Urun.UrunAdi" class="img-thumbnail me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                                    }
+                                    else
+                                    {
+                                        <img src="/images/no-image.jpg" alt="@item.Urun.UrunAdi" class="img-thumbnail me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                                    }
+                                    <div>
+                                        <h6 class="mb-0">@item.Urun.UrunAdi</h6>
+                                        <small class="text-muted">@item.Urun.Kategori?.KategoriAdi</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>@item.Urun.Fiyat.ToString("C")</td>
+                            <td>
+                                <div class="input-group" style="width: 120px;">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="decrementQuantity(@item.SepetUrunuId, @item.Miktar)">-</button>
+                                    <input type="number" class="form-control text-center" value="@item.Miktar" min="1" max="@item.Urun.StokMiktari" onchange="updateQuantity(@item.SepetUrunuId, this.value)">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="incrementQuantity(@item.SepetUrunuId, @item.Miktar, @item.Urun.StokMiktari)">+</button>
+                                </div>
+                            </td>
+                            <td>@((item.Urun.Fiyat * item.Miktar).ToString("C"))</td>
+                            <td>
+                                <form asp-action="RemoveFromCart" method="post" class="d-inline">
+                                    <input type="hidden" name="sepetUrunuId" value="@item.SepetUrunuId" />
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bu ürünü sepetten kaldırmak istediğinizden emin misiniz?')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end"><strong>Toplam:</strong></td>
+                        <td><strong>@Model.Sum(item => item.Urun.Fiyat * item.Miktar).ToString("C")</strong></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <form asp-action="ClearCart" method="post" class="d-inline">
+                <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Sepetinizi temizlemek istediğinizden emin misiniz?')">
+                    <i class="fas fa-trash me-2"></i>Sepeti Temizle
+                </button>
+            </form>
+            <a asp-controller="Siparis" asp-action="Tamamla" class="btn btn-primary">
+                <i class="fas fa-shopping-cart me-2"></i>Ödemeye Geç
+            </a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        function incrementQuantity(sepetUrunuId, currentQuantity, maxStock) {
+            if (currentQuantity < maxStock) {
+                updateQuantity(sepetUrunuId, currentQuantity + 1);
+            }
+        }
+
+        function decrementQuantity(sepetUrunuId, currentQuantity) {
+            if (currentQuantity > 1) {
+                updateQuantity(sepetUrunuId, currentQuantity - 1);
+            }
+        } 
+
+        function updateQuantity(sepetUrunuId, quantity) {
+            if (quantity > 0) {
+                fetch('/Sepet/UpdateQuantity', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `sepetUrunuId=${sepetUrunuId}&miktar=${quantity}`
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    }
+                });
+            }
+        }
+    </script>
+} 

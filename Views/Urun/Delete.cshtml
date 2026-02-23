@@ -1,0 +1,21 @@
+ @model EticaretUygulamasi.Models.Urun
+
+@{
+    ViewData["Title"] = "Ürünü Sil";
+}
+
+<h1>Ürünü Sil</h1>
+
+<h3>Silmek istediðinize emin misiniz?</h3>
+<div>
+    <h4>@Model.UrunAdi</h4>
+    <p>Kategori: @Model.Kategori?.KategoriAdi</p>
+    <p>Fiyat: @Model.Fiyat ?</p>
+    <p>Stok: @Model.StokMiktari</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="UrunId" />
+    <button type="submit" class="btn btn-danger">Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
+</form>
